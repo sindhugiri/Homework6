@@ -150,20 +150,18 @@ names_and_productivities=list(zip(names,prod_list))
 print("\n\n***** Problem 8 *****")
 # Use the Python filter function to select the subset of programmers who have names with 5 or more characters. (i.e. ["Albert","Dinesh","Euijin"]) Your result should be an filter object that points to Student instances. Save that filter iterator in a variable called long_names.
 
-m=Student("Jill")
 
 def five(x):
-    for y in x:
-        if y>5:
-            yield x
+    if len(x.name) > 4:
+        return x
 
 
-long_names=filter(five,names)
+long_names=filter(five,programmers)
 
 
 ## Then write code to cast the value of long_names to a list and save it in the variable long_names_list. 
 
-long_names_list=list(filter(five,names))
+long_names_list=list(long_names)
 
 
 
@@ -174,7 +172,7 @@ print("\n\n***** Problem 9 *****")
 
 ## Note that you can use another list you have already created for this problem.
 
-names_with_not_too_much_seniority=
+names_with_not_too_much_seniority=[student.name for student in programmers if (len(student.name)>student.years_UM)]
 
 
 ## [PROBLEM 10]
@@ -193,17 +191,24 @@ print("\n\n***** Problem 10 *****")
 ## We have provided files samplehw6_1.txt and samplehw6_2.txt for your use for this problem, which hopefully you have downloaded, so you can test with those file names! The test below also relies upon these files. Of course, you could also create other files for testing.
 
 # Define readfiles (make sure to close the file reference in the right place)
-
+def readfiles(filenames):
+    for name in filenames:
+        file=open (name)
+        for x in file:
+            yield x
+        file.close()
 
 # Define len_check
-
+def len_check(x):
+    for y in x:
+        if len(y) > 40:
+            yield y
 
 # Define main_filterer
-# def main_filterer(x):
-#     for y in x:
-#         item=readfiles(y)
-
-#         yield len_check(item)
+def main_filterer(x):
+    for y in readfiles(x):
+        if len_check(y):
+            yield y
 
 
 ## Uncomment this code to test so you can see easily what results from your code. DO uncomment it. DO NOT delete or change it. (You can add other code above while you work, of course.)
